@@ -1,70 +1,71 @@
 #include <cctype>
+#include <cstddef>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <vector>
-// TODO solve lab 6 and 7 
-// TODO перегрузки операторов, все про классы 
 
-int count_words(const std::string &str) {
+bool IsEmpty(std::ifstream& file) {
+    return file.peek() == std::ifstream::traits_type::eof();
+}
+
+size_t CountWords(const std::string& line) {
+    size_t counter{};
     bool is_word = false;
-    int counter = 0;
-    int answer = 0;
-    for (size_t i = 0; i < str.length(); i++) {
-        if (!std::isspace(str[i])) {
-            if (!is_word) {
-                is_word = true;
-                answer++;
-            }
-        } else {
+    for (const char c : line) {
+        if (!std::isspace(static_cast<unsigned char>(c)) && !is_word) {
+            is_word = true;
+            ++counter;
+        } else if (is_word == true) {
             is_word = false;
         }
     }
+    return counter;
+}
 
-    return answer;
+std::vector<std::string> GetBestLines(const std::filesystem::path& input, size_t& max_count) {
+    std::ifstream in{input};
+    if (!in.is_open()) {
+        throw std::runtime_error("Can't open file \"" + input.string() + "\"");
+    }
+    if (IsEmpty(in)) {
+        throw std::runtime_error("File \"" + input.string() + "\" is empty");
+    }
+
+    std::string line;
+    std::vector<std::string> bestLines;
+    while (std::getline(in, line)) {
+        size_t now_count = CountWords(line);
+        if (now_count > max_count) {
+            max_count = now_count;
+            bestLines.clear();
+            bestLines.push_back(line);
+        } else if (now_count == max_count && bestLines.size() < 10) {
+            bestLines.push_back(line);
+        }
+    }
+    in.close();
+    return bestLines;
+}
+
+void PrintLines(const std::vector<std::string>& bestLines, size_t max_count) {
+    std::cout << "Max words count in line is " << max_count << "\n\n";
+    std::cout << "First 10 lines with max words count: \n";
+    std::cout << "------------------------------------\n";
+    for (size_t i = 0; i < bestLines.size(); ++i) {
+        std::cout << i + 1 << ". " << bestLines[i] << "\n";
+    }
 }
 
 int main() {
-
-    const std::string input_file = "input.txt";
-    const std::string output_file = "output.txt";
-
-    std::ifstream fin("../input.txt");
-    if (!fin.is_open()) {
-        std::cout << "Error opening file :(\n";
-        std::exit(1);
+    const std::filesystem::path input{"input.txt"};
+    try {
+        size_t max_count{};
+        std::vector<std::string> bestLines = GetBestLines(input, max_count);
+        PrintLines(bestLines, max_count);
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << '\n';
     }
 
-    int max_word_count = 0;
-    bool found_non_empty_line = false;
-
-    std::vector<std::string> lines_with_max_words;
-
-    std::string str;
-    while (getline(fin, str)) {
-        int word_count = count_words(str);
-        if (word_count > 0) {
-            found_non_empty_line = true;
-        }
-        if (word_count > max_word_count) {
-            max_word_count = word_count;
-            lines_with_max_words.clear();
-            lines_with_max_words.push_back(str);
-        } else if (word_count == max_word_count) {
-            lines_with_max_words.push_back(str);
-        }
-    }
-
-    if (!found_non_empty_line) {
-        std::cout << "All lines in the file are empty or contain no words\n";
-        fin.close();
-        return 0;
-    }
-
-    int len = lines_with_max_words.size();
-    for (int i = 0; i < std::min(10, len); i++) {
-        std::cout << lines_with_max_words[i] << '\n';
-    }
-
-    fin.close();
     return 0;
 }
