@@ -75,6 +75,5 @@ int main() {
     } catch (const std::string& msg) {
         std::cerr << msg << std::endl;
     }
-
     return 0;
 }
