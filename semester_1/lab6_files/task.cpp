@@ -2,7 +2,8 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-// TODO solve lab 6 and 7
+// TODO solve lab 6 and 7 
+// TODO перегрузки операторов, все про классы 
 
 int count_words(const std::string &str) {
     bool is_word = false;
@@ -23,6 +24,9 @@ int count_words(const std::string &str) {
 }
 
 int main() {
+
+    const std::string input_file = "input.txt";
+    const std::string output_file = "output.txt";
 
     std::ifstream fin("../input.txt");
     if (!fin.is_open()) {

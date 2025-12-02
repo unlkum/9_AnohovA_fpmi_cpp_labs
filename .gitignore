@@ -1,4 +1,5 @@
 # Ignore
+.clang-format
 *.cbp
 *.depend
 *.layout
