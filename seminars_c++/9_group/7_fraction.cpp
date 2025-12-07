@@ -32,7 +32,3 @@ Fraction& Fraction::operator=(const Fraction& rhs){
 
     return *this;
 }
-
-
-
-
