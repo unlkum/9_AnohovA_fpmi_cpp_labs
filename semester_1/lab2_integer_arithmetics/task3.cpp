@@ -1,40 +1,80 @@
-#include <iostream>
-#include <cmath>
+/*
+С клавиатуры вводится натуральное число n. Добавить слева
+и справа от этого числа наименьшую отличную от нуля цифру
+*/
 
-bool OnlyNumbers(std::string s) {
-    for (char now : s) {
-        if (!(now >= '0' && now <= '9')) {
+#include <algorithm>
+#include <cctype>
+#include <iostream>
+#include <stdexcept>
+#include <string>
+
+bool IsValidNaturalNumber(const std::string& s) {
+    if (s.empty()) {
+        return false;
+    }
+    // All characters are digits
+    for (const char c : s) {
+        if (!std::isdigit(static_cast<unsigned char>(c))) {
             return false;
         }
     }
+    // Natural number can't start with 0
+    if (s[0] == '0') {
+        return false;
+    }
+
     return true;
 }
 
-int main () {
-    
+std::string GetNumber() {
     std::string num;
     std::cout << "Enter a natural number:\n";
 
     if (!(std::cin >> num)) {
-        std::cout << "Error\n";
-        return 1;
+        throw std::runtime_error("Input error: failed to read number");
     }
 
-    if (num.empty() || !OnlyNumbers(num) || num[0] == '0') {
-        std::cout << "Error\n";
-        return 1;
+    if (!IsValidNaturalNumber(num)) {
+        throw std::invalid_argument("Error: invalid natural number");
     }
 
+    return num;
+}
+
+char FindMinNonZeroDigit(const std::string& num) {
     char min_digit = '9';
-    for (char c : num) {
+    for (const char c : num) {
         if (c != '0' && c < min_digit) {
             min_digit = c;
         }
     }
-    std::string result;
-    result += min_digit;
-    result += num;
-    result += min_digit;
+    return min_digit;
+}
 
+std::string ProcessNumber(const std::string& num) {
+    char min_digit = FindMinNonZeroDigit(num);
+    
+    std::string result(num.size() + 2, min_digit);
+    
+    std::copy(num.begin(), num.end(), result.begin() + 1);
+    
+    return result;
+}
+
+void PrintResult(const std::string& result) {
     std::cout << result << '\n';
+}
+
+int main() {
+    try {
+        std::string num = GetNumber();
+        std::string result = ProcessNumber(num);
+        PrintResult(result);
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+
+    return 0;
 }
