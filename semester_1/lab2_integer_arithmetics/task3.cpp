@@ -3,6 +3,14 @@
 и справа от этого числа наименьшую отличную от нуля цифру
 */
 
+#include "task3.h"
+
+// #include "pch.h"
+
+// TODO переделать в целочисленную арифметику
+// Написать boost unit test (в чт пойду на лекцию там узнаю на что влияет boost test)
+// добавить try catch 7 лаба
+
 #include <algorithm>
 #include <cctype>
 #include <iostream>
@@ -13,13 +21,13 @@ bool IsValidNaturalNumber(const std::string& s) {
     if (s.empty()) {
         return false;
     }
-    // All characters are digits
+
     for (const char c : s) {
         if (!std::isdigit(static_cast<unsigned char>(c))) {
             return false;
         }
     }
-    // Natural number can't start with 0
+
     if (s[0] == '0') {
         return false;
     }
@@ -54,11 +62,11 @@ char FindMinNonZeroDigit(const std::string& num) {
 
 std::string ProcessNumber(const std::string& num) {
     char min_digit = FindMinNonZeroDigit(num);
-    
+
     std::string result(num.size() + 2, min_digit);
-    
+
     std::copy(num.begin(), num.end(), result.begin() + 1);
-    
+
     return result;
 }
 
@@ -66,15 +74,18 @@ void PrintResult(const std::string& result) {
     std::cout << result << '\n';
 }
 
+/*
 int main() {
     try {
         std::string num = GetNumber();
         std::string result = ProcessNumber(num);
         PrintResult(result);
-    } catch (const std::exception& e) {
+    }
+    catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
         return 1;
     }
 
     return 0;
 }
+*/
