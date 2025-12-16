@@ -164,6 +164,9 @@ void ForwardList::Print(std::ostream& out) {
 
 // get first element of the list
 int32_t ForwardList::Front() const {
+    if (head_ == nullptr) {
+        throw std::runtime_error("ForwardList is empty");
+    }
     return head_->value_;
 }
 
