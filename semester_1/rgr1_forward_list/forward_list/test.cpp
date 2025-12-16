@@ -10,13 +10,13 @@
 
 
 void CheckLists(const ForwardList& actual, const std::forward_list<int32_t>& expected) {
-    ForwardList::ForwardListIterator actual_it = actual.begin();
+    ForwardList::ForwardListIterator actual_it = actual.Begin();
     std::forward_list<int32_t>::const_iterator expected_it = expected.begin();
-    for (; actual_it != actual.end() && expected_it != expected.cend();
+    for (; actual_it != actual.End() && expected_it != expected.cend();
          ++actual_it, ++expected_it) {
         REQUIRE(*actual_it == *expected_it);
     }
-    CHECK((actual_it == actual.end() && expected_it == expected.cend()));
+    CHECK((actual_it == actual.End() && expected_it == expected.cend()));
 }
 
 

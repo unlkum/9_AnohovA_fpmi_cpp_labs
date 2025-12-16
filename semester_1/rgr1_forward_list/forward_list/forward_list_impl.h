@@ -41,8 +41,11 @@ public:
 
         bool operator==(const ForwardListIterator& other) const {
             // your code goes here
+            // return *this == other;
+            return position_ == other.position_;
         }
 
+        // how it works
         bool operator!=(const ForwardListIterator& other) const {
             return !(*this == other);
         }
@@ -54,29 +57,50 @@ public:
         pointer operator->() {
             return &position_->value_;
         }
-        
+
     private:
         Node* position_;
     };
 
+    /*
+    for (int x : list) { ... }
+    std::copy(list.begin(), list.end(), ...)
+    */
+
     // methods for "ranged-based for loop"
     // 1) non-const version
     ForwardListIterator begin() {
-        // your code goes here
+        return ForwardListIterator(head_);
     }
     ForwardListIterator end() {
-        // your code goes here
+        return ForwardListIterator(nullptr);
     }
 
     // 2) const version
     // TODO: think about return type
     // (is it exactly ForwardListIterator?)
     ForwardListIterator begin() const {
-        // your code goes here
+        return ForwardListIterator(head_);
     }
     ForwardListIterator end() const {
-        // your code goes here
+        return ForwardListIterator(nullptr);
     }
+
+    // If tests need  
+    ForwardListIterator Begin() {
+        return begin();
+    }
+    ForwardListIterator End() {
+        return end();
+    }
+    ForwardListIterator Begin() const {
+        return begin();
+    }
+    ForwardListIterator End() const {
+        return end();
+    }
+    // If tests need  
+
 
     // default constructor
     ForwardList();
@@ -126,4 +150,6 @@ public:
 
 private:
     // your code goes here
+    Node* head_;
+    size_t size_;
 };
