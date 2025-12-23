@@ -3,17 +3,18 @@
 #include <cassert>
 #include <chrono>
 #include <iostream>
-#include <iomanip>
 
 namespace time_utility {
 
 std::time_t SetTime(size_t hours, size_t minutes) {
 
-    if (hours > MAX_HOUR_NUMBER_PER_DAY)
+    if (hours > MAX_HOUR_NUMBER_PER_DAY) {
         throw std::out_of_range("Wrong value of hours! (must be from 0 to 23)");
+    }
 
-    if (minutes > MAX_MINUTE_NUMBER_PER_HOUR)
+    if (minutes > MAX_MINUTE_NUMBER_PER_HOUR) {
         throw std::out_of_range("Wrong value of minutes! (must be from 0 to 59)");
+    }
 
     using std::chrono::system_clock;
     std::time_t current_time = system_clock::to_time_t(std::chrono::system_clock::now());

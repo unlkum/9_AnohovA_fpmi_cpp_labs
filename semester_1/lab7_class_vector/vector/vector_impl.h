@@ -1,9 +1,7 @@
 #pragma once
 
-#include <algorithm>
 #include <initializer_list>
 #include <cstddef>
-#include <stdexcept>
 #include <iostream>
 
 class Vector {
@@ -27,7 +25,7 @@ public:
     // Конструктор копирования Vector b = a; или Vector b(a)
     Vector(const Vector& other);
 
-    // Оператор присваивания копированием b = a;
+    // Оператор присваивания копированием b = a; b(a)
     Vector& operator=(Vector other);
 
     // Метод Swap, который принимает другой вектор по ссылке и меняет содержимое текущего вектора
@@ -48,7 +46,7 @@ public:
     // Метод PushBack
     void PushBack(const int item);
 
-    // Метод PopBack , который удаляет последний элемент вектора
+    // Метод PopBack, который удаляет последний элемент вектора
     void PopBack();
 
     // Метод Clear , который делает контейнер пустым
@@ -67,6 +65,9 @@ public:
     ~Vector();
 
     /*
+    // Vector a, b;
+    // a = std::move(b);
+
     Vector(Vector&& other) noexcept
         : size_(other.size_), capacity_(other.capacity_), data_(other.data_) {
         other.size_ = 0;

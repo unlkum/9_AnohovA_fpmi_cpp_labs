@@ -2,7 +2,7 @@
 
 void Vector::Reallocate(size_t new_capacity) {
     int* new_data = new int[new_capacity];
-
+    // UB new_capacity < size_
     std::copy(data_, data_ + size_, new_data);
 
     delete[] data_;
@@ -34,7 +34,6 @@ Vector::Vector(const Vector& other)
 
 Vector& Vector::operator=(Vector other) {
     this->Swap(other);
-
     return *this;
 }
 
@@ -68,7 +67,7 @@ size_t Vector::Capacity() const {
 
 void Vector::PushBack(const int item) {
     if (size_ >= capacity_) {
-        size_t new_capacity = (capacity_ == 0) ? 1 : capacity_ * 2;
+        size_t new_capacity = (capacity_ == 0u) ? 1u : capacity_ * 2u;
         Reallocate(new_capacity);
     }
     data_[size_] = item;

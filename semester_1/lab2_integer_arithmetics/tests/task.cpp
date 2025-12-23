@@ -30,7 +30,7 @@ int64_t BinPow(int64_t base, int64_t exp) {
 }
 
 int64_t GetNumber() {
-    std::cout << "Enter a natural number:\n";
+    // std::cout << "Enter a natural number:\n";
 
     int64_t num;
 

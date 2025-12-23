@@ -10,7 +10,7 @@ sudo apt-get install cmake g++ libgtest-dev libboost-test-dev
 
 ## Сборка и запуск
 
-Чтобы собрать проект выполните следующие команды
+Чтобы собрать проект выполните следующие команды из папки tests
 
 ```bash
 mkdir build && cd build

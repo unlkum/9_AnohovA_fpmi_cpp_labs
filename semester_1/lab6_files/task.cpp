@@ -23,13 +23,20 @@ size_t CountWords(const std::string& line) {
     return counter;
 }
 
-std::vector<std::string> GetBestLines(const std::filesystem::path& input, size_t& max_count) {
-    std::ifstream in{input};
+std::vector<std::string> GetBestLines(const std::filesystem::path& file, size_t& max_count) {
+    const std::string filename = file.string();
+
+    if (!std::filesystem::exists(file)) {
+        throw std::runtime_error("File does not exist");
+    }
+
+    std::ifstream in{file};
+
     if (!in.is_open()) {
-        throw std::runtime_error("Can't open file \"" + input.string() + "\"");
+        throw std::runtime_error("Can't open file \"" + file.string() + "\"");
     }
     if (IsEmpty(in)) {
-        throw std::runtime_error("File \"" + input.string() + "\" is empty");
+        throw std::runtime_error("File \"" + file.string() + "\" is empty");
     }
 
     std::string line;

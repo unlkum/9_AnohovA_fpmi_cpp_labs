@@ -41,7 +41,7 @@ public:
 
         bool operator==(const ForwardListIterator& other) const {
             // your code goes here
-            // return *this == other;
+            // return *this == other; infinite
             return position_ == other.position_;
         }
 

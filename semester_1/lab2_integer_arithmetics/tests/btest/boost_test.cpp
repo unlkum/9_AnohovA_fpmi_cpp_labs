@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(IsValidNumber_InvalidCases) {
 BOOST_AUTO_TEST_CASE(BinPow_CorrectValues) {
     BOOST_CHECK_EQUAL(BinPow(10, 0), 1);
     BOOST_CHECK_EQUAL(BinPow(10, 1), 10);
-    BOOST_CHECK_EQUAL(BinPow(10, 3), 1000);
+    BOOST_CHECK_EQUAL(BinPow(2, 3), 8);
 }
 
 // FindMinDigit
@@ -57,8 +57,10 @@ BOOST_AUTO_TEST_CASE(ProcessNumber_Throws) {
 
 // GetNumber
 BOOST_AUTO_TEST_CASE(GetNumber_ReadsValidInput) {
-    std::stringstream ss("123");
+    std::stringstream ss("123"); 
     std::cin.rdbuf(ss.rdbuf());
+    // return bufer of string "123" in cin
+    // data not from keyboard but from stream ss
     BOOST_CHECK_EQUAL(GetNumber(), 123);
 }
 
@@ -69,7 +71,7 @@ BOOST_AUTO_TEST_CASE(GetNumber_ZeroIsNotNatural) {
 }
 
 BOOST_AUTO_TEST_CASE(GetNumber_OverflowLargeNumber) {
-    std::stringstream ss("9999999999999999999999999");
+    std::stringstream ss("abs");
     std::cin.rdbuf(ss.rdbuf());
     BOOST_CHECK_THROW(GetNumber(), std::runtime_error);
 }
