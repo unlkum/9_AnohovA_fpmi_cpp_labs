@@ -1,4 +1,5 @@
-#include <cstddef>
+#pragma once
+#include <iostream>
 #include <list>
 #include <string>
 
@@ -7,9 +8,8 @@ struct Author {
     std::string middle;
     std::string last;
 
-    bool operator<(const Author& other) const {
-        return first < other.first;
-    }
+    bool operator<(const Author& other) const;
+    bool operator==(const Author& other) const;
 };
 
 class Book {
@@ -21,28 +21,18 @@ class Book {
 
    public:
     Book();
-    Book(size_t number, const std::string& name, size_t year);
+    Book(size_t number, std::string name, size_t year);
 
     void addAuthor(const Author& author);
+    void removeAuthor(const std::string& last);
+    bool hasAuthor(const std::string& last) const;
     void sortAuthors();
-    bool hasAuthor(const) const;
 
     const std::string& getName() const;
     const std::list<Author>& getAuthors() const;
+    size_t getNumber() const;
+    size_t getYear() const;
 
     bool operator<(const Book& other) const;
-};
-
-class Library {
-   private:
-    std::list<Book> books_;
-
-   public:
-    void loadFromFile(const std::string& filename);
-
-    void addBook(const Book& book);
-    void removeBook(const std::string& name);
-
-    Book* findBook(const std::string& name);
-    void findBooksByAuthor(const std::string& last) const;
+    friend std::ostream& operator<<(std::ostream& os, const Book& book);
 };

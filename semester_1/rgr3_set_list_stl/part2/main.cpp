@@ -1,53 +1,44 @@
-#include <book.h>
-#include <exception>
-#include <fstream>
+#include "library.h"
+
 #include <iostream>
-
-/*
-std::list<Book> library
-Book - class
-std::set<Author> authors
-*/
-
-/*
-bool IsEmptyFile(std::ifstream& file) {
-    return file.peek() == std::ifstream::traits_type::eof();
-}
-
-std::list<Book> readFromFile(const std::string& filename) {
-    std::ifstream file{filename};
-    if (!file.is_open()) {
-        throw std::runtime_error("Error: Could not open the file \"" + filename + "\"...");
-    }
-
-    if (IsEmptyFile(file)) {
-        throw std::runtime_error("Error: File \"" + filename + "\" is empty...");
-    }
-
-    while (file) {
-    }
-}
-    */
 
 int main() {
     try {
-        Library library;
+        Library lib;
+        lib.loadFromFile("data.txt");
 
-        library.loadFromFile("data.txt");
+        std::cout << "All books:\n";
+        lib.print();
+        std::cout << "\n";
 
-        std::cout << "Books by Ivanov:\n";
-        library.findBooksByAuthor("Ivanov");
+        std::cout << "Add new book:\n";
+        Book b(777, "Design Patterns", 1994);
+        b.addAuthor({"Erich", "-", "Gamma"});
+        lib.add(b);
+        lib.print();
+        std::cout << "\n";
 
-        Book* book = library.findBook("C++ Programming");
-        if (book) {
-            book->addAuthor({"Sidorov", "Sergey", "Ivanovich"});
-            book->removeAuthor("Petrov");
+        std::cout << "Find by author:\n";
+        lib.findByAuthor("Stroustrup");
+        std::cout << "\n";
+
+        std::cout << "Modify 'Introduction to Algorithms':\n";
+        Book* found = lib.find("Introduction to Algorithms");
+        if (found) {
+            found->removeAuthor("Cormen");
+            found->addAuthor({"Ivanov", "I.", "I."});
+            std::cout << *found << std::endl;
+        } else {
+            std::cout << "Book not found\n";
         }
+        std::cout << "\n";
 
-        library.removeBook("Algorithms");
+        std::cout << "Remove 'Clean Code':\n";
+        lib.remove("Clean Code");
+        lib.print();
 
     } catch (const std::exception& err) {
-        std::cerr << err.what() << std::endl;
+        std::cout << err.what() << std::endl;
     }
 
     return 0;
