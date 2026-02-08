@@ -7,7 +7,7 @@
 
 // Mark
 bool Mark::isBad() const {
-    if (mark_ <= 3) {
+    if (mark_ < 4) {
         return true;
     }
     return false;
@@ -253,7 +253,7 @@ void Database::printBestStudents(std::ostream& os) {
 
     os << "\nSTUDENTS WITH MAX SUM: " << max_sum << "\n";
     for (const auto& [id, s] : students_) {
-        if (s.getSum() == max_sum) {
+        if (s.getSum() - max_sum <= 0.001) {
             printStudentLine(os, s, true);
         }
     }
