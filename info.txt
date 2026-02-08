@@ -1,8 +1,0 @@
-Ivanov_I.I 10105 Math 4 Phys 5 Prog 4
-Petrov_P.P 10102 Math 3 Phys 3 Prog 3
-Sidorov_S.S 10108 Math 5 Phys 5 Prog 5
-Alexeev_A.A 10101 Math 4 Phys 3 Prog 5 Hist 5
-Borisov_B.B 10109 Math 2 Phys 3
-Vasiliev_V.V 10103 Math 5 Phys 4
-Zaytsev_Z.Z 10101 Math 5 Phys 5 Prog 5 Hist 5
-Ivanov_I.I 99999 Math 5 Phys 5 Prog 5
