@@ -14,11 +14,10 @@ class String {
         std::cout << "Default.\n";
     }
 
-    explicit String(char c, size_t n)
-     : size_(n + 1), data_(new char[size_])  {
+    explicit String(char c, size_t n) : size_(n + 1), data_(new char[size_]) {
         std::cout << "User defined.\n";
-        //data_ = new char[n+1];
-        for (size_t i = 0; i < n; ++i){
+        // data_ = new char[n+1];
+        for (size_t i = 0; i < n; ++i) {
             data_[i] = c;
         }
         data_[n] = '\0';
@@ -35,9 +34,7 @@ class String {
         std::copy(other.data_, other.data_ + size_, data_);
     }
 
-    String(std::initializer_list<char> list)
-      : size_(list.size() + 1), data_(new char[size_]) {
-        
+    String(std::initializer_list<char> list) : size_(list.size() + 1), data_(new char[size_]) {
         // int i = 0;
         // since c++20
         for (int i = 0; char item : list) {
@@ -46,8 +43,8 @@ class String {
         }
         data_[size_ - 1] = '\0';
     }
-    
-    ~String(){
+
+    ~String() {
         std::cout << "Destructor.\n";
         delete[] data_;
     }
@@ -58,15 +55,15 @@ class String {
         if (this == &other) {
             return *this;
         }
-        
+
         // swap and copy
         String copy(other);
         Swap(copy);
 
-        //size_ = other.size_;
-        //delete[] data_;
-        //data_ = new char[size_];
-        //std::copy(other.data_, other.data_ + size_, data_);
+        // size_ = other.size_;
+        // delete[] data_;
+        // data_ = new char[size_];
+        // std::copy(other.data_, other.data_ + size_, data_);
 
         return *this;
     }
@@ -88,16 +85,13 @@ class String {
         return size_ == 0u ? 0u : size_ - 1;
     }
 
-    //friend std::ostream& operator<<(std::ostream&, const String&);
+    // friend std::ostream& operator<<(std::ostream&, const String&);
 };
 
-
-std::ostream& operator<<(std::ostream& out, const String& str) {
-
+inline std::ostream& operator<<(std::ostream& out, const String& str) {
     for (size_t i = 0; i < str.Size(); ++i) {
         out << str[i];
     }
 
     return out;
 }
-
